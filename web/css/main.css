@@ -1,0 +1,158 @@
+body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #8547ea;
+}
+
+.hidden {
+  display: none !important;
+}
+
+label[for=file-input] {
+  padding: 0.8rem 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+  display: block;
+  width: 40%;
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  cursor: pointer;
+}
+
+table {
+  margin: 3rem;
+  border-collapse: collapse;
+}
+
+table th {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e;
+  vertical-align: bottom;
+  padding: .75rem;
+  border-top: 1px solid #dee2e6;
+}
+
+tr:nth-of-type(odd) {
+  background-color: #f2f2f2;
+}
+
+tbody td {
+  padding: 0.5rem;
+  border: solid 0.1rem #dcdcf0;
+}
+
+#upload {
+  display: flex;
+  gap: 1rem;
+  height: 60px;
+}
+
+/**
+  Source: https://github.com/loadingio/css-spinner/
+**/
+.lds-roller,
+.lds-roller div,
+.lds-roller div:after {
+  box-sizing: border-box;
+}
+.lds-roller {
+  display: inline-block;
+  position: absolute;
+  left: 45%;
+  top: 35%;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7.2px;
+  height: 7.2px;
+  border-radius: 50%;
+  background: currentColor;
+  margin: -3.6px 0 0 -3.6px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 62.62742px;
+  left: 62.62742px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 67.71281px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 70.90963px;
+  left: 48.28221px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 70.90963px;
+  left: 31.71779px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 67.71281px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 62.62742px;
+  left: 17.37258px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12.28719px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
