@@ -48,6 +48,7 @@
         fileSelector.addEventListener("change", async(event) => {
           const file = event.target.files[0];
           toggleElements.forEach(el => el.classList.remove('hidden'));
+          await new Promise(r => setTimeout(r, 0));
 
           // Compute hash
           const start = Date.now();
