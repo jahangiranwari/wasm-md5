@@ -7,3 +7,9 @@ services:
       - "80:80"
     volumes:
       - ./web:/usr/share/nginx/html
+  cli:
+    image: timbru31/ruby-node:2.7-alpine
+    working_dir: "/opt/wasm"
+    volumes:
+      - ./cli:/opt/wasm
+    entrypoint: ["/usr/bin/env", "sh"]
