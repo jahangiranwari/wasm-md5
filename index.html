@@ -15,17 +15,29 @@
       <label for="file-input">Choose a file</label>
       <input type="file" id="file-input" class="hidden">
       <h3 id="processing" class="hidden">Computing hash...</h3>
-      <div id="result"></div>
       <div id="roller" class="lds-roller hidden">
         <div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div>
       </div>
     </form>
 
+    <table id="result" class="hidden">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Size (MB)</th>
+          <th>Hash</th>
+          <th>Duration (ms)</th>
+          <th>Throughput (MB/s)</th>
+        </tr>
+      </thead>
+      <tbody />
+    </table>
+
     <script>
       (() => {
         const fileSelector = document.getElementById("file-input");
-        const resultElement = document.getElementById("result");
+        const resultTable = document.getElementById("result");
         const processingEl = document.getElementById("processing");
         const roller = document.getElementById("roller");
         const toggleElements = [roller, processingEl];
@@ -33,7 +45,6 @@
         fileSelector.addEventListener("change", async(event) => {
           const file = event.target.files[0];
           toggleElements.forEach(el => el.classList.remove('hidden'));
-          resultElement.innerHTML = "Loading...";
 
           // Compute hash
           const start = Date.now();
@@ -46,11 +57,14 @@
           const fileSizeMB = file.size / 1024 / 1024;
           const throughput = fileSizeMB / (duration / 1000);
           toggleElements.forEach(el => el.classList.add('hidden'));
-          resultElement.innerHTML = `
-            Hash: ${hash}<br>
-            Duration: ${duration} ms<br>
-            Throughput: ${throughput.toFixed(2)} MB/s
-          `;
+          resultTable.classList.remove('hidden');
+
+          // Add new result row
+          const resultRow = resultTable.getElementsByTagName('tbody')[0].insertRow();
+          [file.name, fileSizeMB, hash, duration, throughput].forEach((val, index) => {
+            const cellNode = document.createTextNode(val);
+            resultRow.insertCell(index).appendChild(cellNode);
+          });
         });
       })();
     </script>
