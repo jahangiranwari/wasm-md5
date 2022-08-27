@@ -12,9 +12,12 @@
   <body>
     <form>
       <h1>MD5 using WebAssembly</h1>
-      <label for="file-input">Choose a file</label>
-      <input type="file" id="file-input" class="hidden">
-      <h3 id="processing" class="hidden">Computing hash...</h3>
+      <div id="upload">
+        <label for="file-input">Choose a file</label>
+        <input type="file" id="file-input" class="hidden">
+        <h3 id="processing" class="hidden">Computing hash...</h3>
+      </div>
+
       <div id="roller" class="lds-roller hidden">
         <div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div>
