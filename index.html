@@ -16,6 +16,10 @@
       <input type="file" id="file-input" class="hidden">
       <h3 id="processing" class="hidden">Computing hash...</h3>
       <div id="result"></div>
+      <div id="roller" class="lds-roller hidden">
+        <div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div>
+      </div>
     </form>
 
     <script>
@@ -23,10 +27,12 @@
         const fileSelector = document.getElementById("file-input");
         const resultElement = document.getElementById("result");
         const processingEl = document.getElementById("processing");
+        const roller = document.getElementById("roller");
+        const toggleElements = [roller, processingEl];
 
         fileSelector.addEventListener("change", async(event) => {
           const file = event.target.files[0];
-          processingEl.classList.remove('hidden')
+          toggleElements.forEach(el => el.classList.remove('hidden'));
           resultElement.innerHTML = "Loading...";
 
           // Compute hash
@@ -39,7 +45,7 @@
           const duration = end - start;
           const fileSizeMB = file.size / 1024 / 1024;
           const throughput = fileSizeMB / (duration / 1000);
-          processingEl.classList.remove('hidden');
+          toggleElements.forEach(el => el.classList.add('hidden'));
           resultElement.innerHTML = `
             Hash: ${hash}<br>
             Duration: ${duration} ms<br>
