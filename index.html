@@ -48,6 +48,7 @@
         fileSelector.addEventListener("change", async(event) => {
           const file = event.target.files[0];
           toggleElements.forEach(el => el.classList.remove('hidden'));
+          await new Promise(r => setTimeout(r, 0));
 
           // Compute hash
           const start = Date.now();
@@ -64,7 +65,7 @@
 
           // Add new result row
           const resultRow = resultTable.getElementsByTagName('tbody')[0].insertRow();
-          [file.name, fileSizeMB, hash, duration, throughput].forEach((val, index) => {
+          [file.name, fileSizeMB.toFixed(2), hash, duration, throughput].forEach((val, index) => {
             const cellNode = document.createTextNode(val);
             resultRow.insertCell(index).appendChild(cellNode);
           });
