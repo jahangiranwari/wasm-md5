@@ -6,6 +6,7 @@
     <title>MD5 using Wasm</title>
     <link rel="stylesheet" href="css/main.css">
     <script src="js/md5.umd.min.js"></script>
+    <script defer src="js/hasher.js"></script>
   </head>
 
   <body>
@@ -18,63 +19,34 @@
     </form>
 
     <script>
-      // Copied from https://stackoverflow.com/a/63287199
-      const chunkSize = 64 * 1024 * 1024;
-      const fileReader = new FileReader();
-      let hasher = null;
+      (() => {
+        const fileSelector = document.getElementById("file-input");
+        const resultElement = document.getElementById("result");
+        const processingEl = document.getElementById("processing");
 
-      function hashChunk(chunk) {
-        return new Promise((resolve, reject) => {
-          fileReader.onload = async(e) => {
-            const view = new Uint8Array(e.target.result);
-            hasher.update(view);
-            resolve();
-          };
+        fileSelector.addEventListener("change", async(event) => {
+          const file = event.target.files[0];
+          processingEl.classList.remove('hidden')
+          resultElement.innerHTML = "Loading...";
 
-          fileReader.readAsArrayBuffer(chunk);
+          // Compute hash
+          const start = Date.now();
+          const hasher = new Hasher(file);
+          const hash = await hasher.getMD5();
+          const end = Date.now();
+
+          // Display hash and processing results
+          const duration = end - start;
+          const fileSizeMB = file.size / 1024 / 1024;
+          const throughput = fileSizeMB / (duration / 1000);
+          processingEl.classList.remove('hidden');
+          resultElement.innerHTML = `
+            Hash: ${hash}<br>
+            Duration: ${duration} ms<br>
+            Throughput: ${throughput.toFixed(2)} MB/s
+          `;
         });
-      }
-
-      const readFile = async(file) => {
-        if (hasher) {
-          hasher.init();
-        } else {
-          hasher = await hashwasm.createMD5();
-        }
-
-        const chunkNumber = Math.floor(file.size / chunkSize);
-
-        for (let i = 0; i <= chunkNumber; i++) {
-          const chunk = file.slice(
-            chunkSize * i,
-            Math.min(chunkSize * (i + 1), file.size)
-          );
-          await hashChunk(chunk);
-        }
-
-        const hash = hasher.digest();
-        return Promise.resolve(hash);
-      };
-
-      const fileSelector = document.getElementById("file-input");
-      const resultElement = document.getElementById("result");
-
-      fileSelector.addEventListener("change", async(event) => {
-        const file = event.target.files[0];
-
-        resultElement.innerHTML = "Loading...";
-        const start = Date.now();
-        const hash = await readFile(file);
-        const end = Date.now();
-        const duration = end - start;
-        const fileSizeMB = file.size / 1024 / 1024;
-        const throughput = fileSizeMB / (duration / 1000);
-        resultElement.innerHTML = `
-          Hash: ${hash}<br>
-          Duration: ${duration} ms<br>
-          Throughput: ${throughput.toFixed(2)} MB/s
-        `;
-      });
+      })();
     </script>
   </body>
 </html>
