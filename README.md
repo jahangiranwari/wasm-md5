@@ -33,4 +33,16 @@ Any folder currently inside the project's `cli` folder is available for testing.
 File          Size (MB)  Hash                             Duration (ms)   Throughput (MB/s)
 a_new_day.mp4 158        196747eff931c619f4b2c484cb8371ee 878.72          179.81
 ```
+
+### Rust
+To compare MD5 we use [md-5](https://crates.io/crates/md-5) crate. First run below command to login to CLI:
+```bash
+$ docker-compose run --rm cli
+```
+Any folder currently inside the project's `cli` folder is available for testing. You can now calculate MD5 by running below command:
+```bash
+/opt/wasm # cargo run a_new_day.mp4
+File          Size (MB)  Hash                             Duration (ms)  Throughput (MB/s)
+a_new_day.mp4 158.13     196747eff931c619f4b2c484cb8371ee 19.44s         6.33
+```
 **Note**: The purpose of computing MD5 from command line is just to compare the generated hash and not to evaluate the performance.
