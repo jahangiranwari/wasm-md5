@@ -8,7 +8,9 @@ services:
     volumes:
       - ./web:/usr/share/nginx/html
   cli:
-    image: timbru31/ruby-node:2.7-alpine
+    build:
+      context: ./cli
+      dockerfile: ../Dockerfile
     working_dir: "/opt/wasm"
     volumes:
       - ./cli:/opt/wasm
