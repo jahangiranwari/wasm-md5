@@ -1,0 +1,13 @@
+[package]
+name = "wasm-md5"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name="wasm-md5"
+path = "calculate_hash.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+md-5 = "0.10.4"
